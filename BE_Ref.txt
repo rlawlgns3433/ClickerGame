@@ -1,0 +1,2 @@
+https://developer.thebackend.io/unity3d/guide/utils/googlehash/GetGoogleHash/
+https://community.thebackend.io/t/bad-google-hash/4129
