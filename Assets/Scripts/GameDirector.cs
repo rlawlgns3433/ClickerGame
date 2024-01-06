@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+using BackEnd;
 
 public class GameDirector : MonoBehaviour
 {
@@ -26,16 +29,21 @@ public class GameDirector : MonoBehaviour
     [Tooltip("터치 가능 영역")]
     private RectTransform Panel_PetTouchable;
 
+    [Tooltip("닉네임")]
+    private Text Text_NickName;
+
+    private bool isPaused = false;
+
     private void Start()
     {
         Text_Gold = GameObject.Find("Text_Gold").GetComponent<Text>();
         Text_Level = GameObject.Find("Text_Level").GetComponent<Text>();
+        Text_NickName = GameObject.Find("Text_NickName").GetComponent<Text>();
         Text_Label_ClickUpgrade = GameObject.Find("Label_ClickUpgrade").GetComponent<Text>();
         Text_Label_GoldsPerSecUpgrade = GameObject.Find("Label_GoldsPerSecUpgrade2").GetComponent<Text>();
         Text_ClickeUpgradeGold = GameObject.Find("Text_UpgradeGold").GetComponent<Text>();
         Text_GoldsPerSecUpgradeUpgradeGold = GameObject.Find("Text_GoldsPerSecUpgradeGold").GetComponent<Text>();
         Panel_PetTouchable = GameObject.Find("PetTouchable").GetComponent<RectTransform>();
-
         BackendGameData.Instance.GameDataGet(); // 데이터 삽입 함수
 
         // [추가] 서버에 불러온 데이터가 존재하지 않을 경우, 데이터를 새로 생성하여 삽입
@@ -47,6 +55,9 @@ public class GameDirector : MonoBehaviour
         StartCoroutine(IDisplayInfo());
         StartCoroutine(IEarnGoldsPerSec());
 
+        BackendReturnObject bro = Backend.BMember.GetUserInfo();
+        string nickname = bro.GetReturnValuetoJSON()["row"]["nickname"].ToString();
+        Text_NickName.text = nickname;
     }
 
     private void Update()
@@ -71,6 +82,27 @@ public class GameDirector : MonoBehaviour
         BackendGameData.Instance.GameDataUpdate();
     }
 
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            // 앱이 일시 중지될 때 실행할 로직
+            isPaused = true;
+            // 예를 들어 데이터 저장 등
+            BackendGameData.Instance.GameDataUpdate();
+        }
+        else
+        {
+            // 앱이 다시 활성화될 때 실행할 로직
+            if (isPaused)
+            {
+                // 앱이 강제 종료된 경우에만 이 부분 실행
+                // 예를 들어 강제 종료 시 로그 기록 등
+                BackendGameData.Instance.GameDataUpdate();
+            }
+            isPaused = false;
+        }
+    }
     public void UpgradeButtonClicked()
     {
         PlayerData.Instance.mUpgradeClickCost = PlayerData.Instance.mClickLevel * PlayerData.Instance.mClickLevel * PlayerData.Instance.mClickLevel;
@@ -106,6 +138,13 @@ public class GameDirector : MonoBehaviour
         {
             Debug.Log("업그레이드 할 수 없습니다.");
         }
+    }
+
+    public void LogoutButton()
+    {
+        BackendGameData.Instance.GameDataUpdate();
+        Backend.BMember.Logout();
+        SceneManager.LoadScene("LoginScene");
     }
 
     private float MyRound(float number, int decimalPlaces)
