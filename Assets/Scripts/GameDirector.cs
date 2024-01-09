@@ -8,6 +8,10 @@ using BackEnd;
 
 public class GameDirector : MonoBehaviour
 {
+    [Header("PlayerAnimation")]
+    [SerializeField]
+    private PlayerAnimation playerAnimator;
+
     [Tooltip("현재 보유중인 골드")]
     private Text Text_Gold;
 
@@ -36,6 +40,7 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
+        playerAnimator = GameObject.Find("MyPet").GetComponent<PlayerAnimation>();
         Text_Gold = GameObject.Find("Text_Gold").GetComponent<Text>();
         Text_Level = GameObject.Find("Text_Level").GetComponent<Text>();
         Text_NickName = GameObject.Find("Text_NickName").GetComponent<Text>();
@@ -111,6 +116,7 @@ public class GameDirector : MonoBehaviour
             PlayerData.Instance.mClickLevel += 1;
             PlayerData.Instance.mGolds -= PlayerData.Instance.mUpgradeClickCost;
             BackendGameData.Instance.ClickLevelUp();
+            playerAnimator.PlayUpgradeAnimation();
         }
         else
         {
@@ -132,6 +138,7 @@ public class GameDirector : MonoBehaviour
 
 
             BackendGameData.Instance.AutoGoldLevelUp();
+            playerAnimator.PlayUpgradeAnimation();
             BackendGameData.Instance.UpdateGoldsPerSec(PlayerData.Instance.mGoldsPerSec);
         }
         else

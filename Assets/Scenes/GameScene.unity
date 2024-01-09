@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f814b0c7180732d479817ff707e2754e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 0}
 --- !u!1 &259974933
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +653,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.11320752, g: 0.05304377, b: 0.05304377, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -937,8 +938,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4980015125858696410, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 717544007}
   m_SourcePrefab: {fileID: 100100000, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
+--- !u!1 &717544006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4980015125858696410, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
+  m_PrefabInstance: {fileID: 717544005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &717544007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717544006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9f0bad57f876b448a0c6b5d6bf6429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAnimator: {fileID: 0}
 --- !u!1 &886587442
 GameObject:
   m_ObjectHideFlags: 0

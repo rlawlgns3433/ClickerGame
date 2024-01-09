@@ -106,7 +106,11 @@ public class LoginManager : MonoBehaviour
     public void Register()
     {
         if (Register_InputField_PW.text != Register_InputField_PW_Confirm.text) return;
-        if (Register_InputField_PW.text.Length < 4) return;
+        if (Register_InputField_PW.text.Length < 4)
+        {
+            Debug.LogError("회원가입에 실패했습니다.");
+            return;
+        }
 
         BackendLogin.Instance.CustomSignUp(Register_InputField_ID.text, Register_InputField_PW_Confirm.text, Register_InputField_Email.text, Register_InputField_NickName.text);
         Register_InputField_ID.text = "";
