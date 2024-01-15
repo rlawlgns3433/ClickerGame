@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "doubleClickItem", menuName = "doubleClickItemData", order = 1)]
 public class Item : ScriptableObject
 {
+    public bool isUsing;
     public string name;
     public string description;
     public int price;

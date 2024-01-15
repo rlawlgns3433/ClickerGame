@@ -22,6 +22,7 @@ public class Shop : MonoBehaviour
     }
 
     public long originalClickLevel;
+    public long itemUseClickLevel;
     public Item item;
     // Start is called before the first frame update
 
@@ -30,28 +31,39 @@ public class Shop : MonoBehaviour
         item = Resources.Load<Item>("doubleClickItem");
     }
 
+    private void Update()
+    {
+        //if(!item.isUsing && item.remainTime <= 0)
+        //{
+        //    item.remainTime = 10;
+        //    StopCoroutine("UseItemCoroutine");
+        //}
+    }
+
     public void UseItem()
     {
         Debug.Log("지속시간 : " + item.durationTime);
         originalClickLevel = PlayerData.Instance.mClickLevel;
-        StartCoroutine(UseItemCoroutine(item));
+        itemUseClickLevel = originalClickLevel * 2;
+        StartCoroutine("UseItemCoroutine");
     }
 
-    IEnumerator UseItemCoroutine(Item _item)
+    IEnumerator UseItemCoroutine()
     {
-        
         while(true)
         {
             if(item.remainTime < 0)
             {
                 PlayerData.Instance.mClickLevel = originalClickLevel;
-                StopCoroutine(UseItemCoroutine(_item));
+                item.remainTime = item.durationTime;
+                yield break;
             }
             Debug.Log("코루틴 시작 x2");
-
-            PlayerData.Instance.mClickLevel = PlayerData.Instance.mClickLevel * 2;
-            _item.remainTime -= Time.deltaTime;
-            Debug.Log(_item.remainTime);
+            PlayerData.Instance.mClickLevel = itemUseClickLevel;
+            item.isUsing = true;
+            item.remainTime -= 1;
+            Debug.Log(item.remainTime);
+            yield return new WaitForSecondsRealtime(1.0f);
         }
     }
 }

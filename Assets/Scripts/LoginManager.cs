@@ -79,7 +79,6 @@ public class LoginManager : MonoBehaviour
             Register_Text_PW_Incorrect.text = "비밀번호가 일치합니다.";
             Register_Text_PW_Incorrect.color = new Color(0f, 255f, 0f, 255);
         }
-        
     }
 
     private static LoginManager _instance = null;
