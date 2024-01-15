@@ -147,6 +147,22 @@ public class GameDirector : MonoBehaviour
         }
     }
 
+    public void UseDoubleClickItem()
+    {
+        if (PlayerData.Instance.mGolds >= Shop.Instance.item.price)
+        {
+            PlayerData.Instance.mGolds -= Shop.Instance.item.price;
+
+            Shop.Instance.UseItem();
+
+            Debug.Log("아이템을 사용합니다.");
+        }
+        else
+        {
+            Debug.Log("아이템을 사용할 수 없습니다.");
+        }
+    }
+
     public void LogoutButton()
     {
         BackendGameData.Instance.GameDataUpdate();
@@ -173,12 +189,12 @@ public class GameDirector : MonoBehaviour
 
     IEnumerator IDisplayInfo()
     {
-        while(true)
+        while (true)
         {
             Text_Label_ClickUpgrade.text = "1 클릭 = " + (PlayerData.Instance.mClickLevel + 1).ToString() + " 골드";
             Text_Label_GoldsPerSecUpgrade.text = PlayerData.Instance.mGoldsPerSec.ToString() + " 골드";
             Text_Gold.text = "골드 : " + MyRound(PlayerData.Instance.mGolds, 3).ToString();
-            Text_Level.text = "레벨 : " + ((PlayerData.Instance.mClickLevel + PlayerData.Instance.mGoldsPerSecLevel)/2).ToString();
+            Text_Level.text = "레벨 : " + ((PlayerData.Instance.mClickLevel + PlayerData.Instance.mGoldsPerSecLevel) / 2).ToString();
             Text_ClickeUpgradeGold.text = (PlayerData.Instance.mClickLevel * PlayerData.Instance.mClickLevel * PlayerData.Instance.mClickLevel).ToString() + "골드";
             Text_GoldsPerSecUpgradeUpgradeGold.text = (PlayerData.Instance.mGoldsPerSecLevel * PlayerData.Instance.mGoldsPerSecLevel * PlayerData.Instance.mGoldsPerSecLevel).ToString() + "골드";
 
@@ -189,7 +205,7 @@ public class GameDirector : MonoBehaviour
 
     IEnumerator IEarnGoldsPerSec()
     {
-        while(true)
+        while (true)
         {
             PlayerData.Instance.mGolds += MyRound(PlayerData.Instance.mGoldsPerSec, 3);
             BackendGameData.Instance.UpdateGold(PlayerData.Instance.mGolds);
