@@ -33,6 +33,8 @@ public class PlayerData
     public long mClickLevel = 1;
 
     public long mGoldsPerSecLevel = 1;
+
+    public string mNickName = "";
 }
 
 

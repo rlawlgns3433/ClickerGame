@@ -24,7 +24,7 @@ public class BackendLogin
         }
     }
 
-    public void CustomSignUp(string id, string pw, string email)
+    public void CustomSignUp(string id, string pw, string email, string nickname)
     {
         Debug.Log("회원가입을 요청합니다.");
 
@@ -33,6 +33,7 @@ public class BackendLogin
         if (bro.IsSuccess())
         {
             Debug.Log("회원가입에 성공했습니다. : " + bro);
+            Backend.BMember.CreateNickname(nickname);
             Backend.BMember.UpdateCustomEmail(email);
         }
         else
