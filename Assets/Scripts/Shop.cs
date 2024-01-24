@@ -45,6 +45,7 @@ public class Shop : MonoBehaviour
         Debug.Log("지속시간 : " + item.durationTime);
         originalClickLevel = PlayerData.Instance.mClickLevel;
         itemUseClickLevel = originalClickLevel * 2;
+        item.isUsing = true;
         StartCoroutine("UseItemCoroutine");
     }
 
@@ -56,6 +57,7 @@ public class Shop : MonoBehaviour
             {
                 PlayerData.Instance.mClickLevel = originalClickLevel;
                 item.remainTime = item.durationTime;
+                item.isUsing = false;
                 yield break;
             }
             Debug.Log("코루틴 시작 x2");

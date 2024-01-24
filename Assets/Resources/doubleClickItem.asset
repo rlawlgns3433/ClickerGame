@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f04e111282fd14b80f959191b5d73f, type: 3}
   m_Name: doubleClickItem
   m_EditorClassIdentifier: 
-  isUsing: 1
+  isUsing: 0
   name: doubleClick
   description: "10\uCD08 \uB3D9\uC548 \uD074\uB9AD \uB2F9 \uACE8\uB4DC 2\uBC30 \uD68D\uB4DD"
   price: 2000

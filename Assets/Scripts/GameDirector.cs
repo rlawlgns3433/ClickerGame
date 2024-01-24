@@ -149,6 +149,7 @@ public class GameDirector : MonoBehaviour
 
     public void UseDoubleClickItem()
     {
+        if (Shop.Instance.item.isUsing) return;
         if (PlayerData.Instance.mGolds >= Shop.Instance.item.price)
         {
             PlayerData.Instance.mGolds -= Shop.Instance.item.price;
